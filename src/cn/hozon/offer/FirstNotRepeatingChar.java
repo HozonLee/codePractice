@@ -1,18 +1,31 @@
-import java.util.ArrayList;
-import java.util.List;
-public class Solution {
-    public int FirstNotRepeatingChar(String str) {
-        if(str == null || str.length()==0) return -1;
-        List<Character> list = new ArrayList<>();
-        for(int i=0;i<str.length();i++){
-            char ch = str.charAt(i);
-            if(!list.contains(ch)){
-                list.add(Character.valueOf(ch));
-            }else{
-                list.remove(Character.valueOf(ch));
+import java.util.HashMap;
+public class Solution
+{
+    public int FirstNotRepeatingChar(String str)
+    {
+        
+        HashMap<Character,Integer> map=new HashMap<Character,Integer>();
+        for(int i=0;i<str.length();i++)
+        {
+            char c=str.charAt(i);
+            if(map.containsKey(c))
+            {
+                int time=map.get(c);
+                time++;
+                map.put(c,time);
+                 
+            }
+            else
+            {
+                map.put(c,1);
             }
         }
-        if(list.size() <=0) return -1;
-        return str.indexOf(list.get(0));
+       for(int i=0;i<str.length();i++)
+       {
+           char c=str.charAt(i);
+          if(map.get(c)==1)
+           return i;
+       }
+       return -1;
     }
 }
